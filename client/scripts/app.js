@@ -1,20 +1,17 @@
+
 $(document).ready(function(){
   var user = window.location.search.split('username=')[1];
-  console.log('user is ' + user);
   var userID;
 
   var login = {
     server: 'http://localhost:3000/classes/users',
     getID: function(){
-      console.log('username is ' + user + 'inside scope');
-      // debugger;
       $.ajax( {
         data: {username: user},
         url: login.server,
         type: 'GET',
-        // dataType: 'json',
         contentType: 'application/json',
-        success: function(data){userID = data; console.log('userID is ' + userID);},
+        success: function(data){userID = data;},
         error: function(err) {console.table(err);console.log('get request error');}
       });
     }
@@ -56,28 +53,25 @@ $(document).ready(function(){
         } else {
           app.addRoom(newRoom);
           $('#roomSelect').val(newRoom);
+          $('#roomSelect').trigger('change');
         }
       });
     },
     send: function(message) {
-      console.log('send is running');
       $.ajax( {
         url: app.server + '/messages',
         data: JSON.stringify(message),
         type: 'POST',
         success: function(message) {app.fetch();},
-        error: function(message) {console.log(message); console.log('post request error');},
-        // dataType: 'json',
+        error: function(message) {console.log('post request error');},
         contentType: 'application/json'
       });
     },
     fetch: function() {
-      console.log('fetch is running');
       $.ajax( {
         data: {roomname: $('#roomSelect').val()},
         url: app.server + '/messages',
         type: 'GET',
-        // dataType: 'json',
         contentType: 'application/json',
         success: loadMessages,
         error: function(err) {console.table(err);console.log('get request error');}
@@ -138,25 +132,18 @@ $(document).ready(function(){
     app.clearMessages();
     var chatList = json;
     var currentRoom = $('#roomSelect').val();
-    for (var i = 0; i <chatList.length ; i++) {
-      // var roomname = _.escape((chatList[i].roomname || 'lobby').toString().trim());
-      // if (roomname === currentRoom) {
+    for (var i = 0; i < chatList.length; i++) {
       app.addMessage(chatList[i]);
-      // } else if (!rooms.hasOwnProperty(roomname)) {
-      //   app.addRoom(roomname);
-      // }
       app.getRooms();
     }
   };
 
-
 app.init();
 app.fetch();
-app.getRooms();
 if (user) {
   login.getID();
 }
-// app.send({'user_id': 2, text: 'another test', roomname: 'lobby'});
+//app.send({'user_id': 2, "message_text": 'another test', roomname: 'lobby'});
 //<script>$('body').css('background-image','url("http://www.sopawsome.com/wp-content/uploads/2016/02/penguin-push-penguin.gif")');</script>
 //app.send({username: "<script>$('body').css('background-image','url(\"http://www.sopawsome.com/wp-content/uploads/2016/02/penguin-push-penguin.gif\")');</script>", text:"<script>$('body').css('background-image','url(\"http://www.sopawsome.com/wp-content/uploads/2016/02/penguin-push-penguin.gif\")');</script>", roomname: 'lobby'});
 //app.send({username: "penguinlover", text: 'penguins!', roomname: "<script>$('body').css('background-image','url(\"http://www.sopawsome.com/wp-content/uploads/2016/02/penguin-push-penguin.gif\")');</script>"});

@@ -12,7 +12,8 @@
     "morgan": "^1.4.1",
     "mysql": "^2.9.0",
     "request": "^2.40.0",
-    "sequelize": "^3.8.0"
+    "sequelize": "^3.8.0",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "test": "node ./server/app.js & mocha server/spec/server-spec.js; RES=$?; kill %1; exit $RES"
