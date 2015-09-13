@@ -18,6 +18,7 @@ CREATE TABLE users (
   user_id MEDIUMINT NOT NULL AUTO_INCREMENT,
   username varchar(20),
   PRIMARY KEY (user_id)
+  -- UNIQUE (username)
 );
 
 -- INSERT INTO messages (

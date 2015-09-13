@@ -6,7 +6,7 @@
     "bluebird": "^2.3.0",
     "body-parser": "^1.9.2",
     "chai": "^1.9.1",
-    "express": "^4.10.1",
+    "express": "^4.13.3",
     "lodash": "^2.4.1",
     "mocha": "^1.21.4",
     "morgan": "^1.4.1",
